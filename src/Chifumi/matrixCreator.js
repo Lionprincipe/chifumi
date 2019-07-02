@@ -9,10 +9,11 @@ if result of [i][j], this result is reproduice on [j][i]
 */
 
 export default function matrixCreator(size) {
+  console.log(size, 'size')
   const placeHolder = -1
   return (
     size > 0 &&
-    [...Array([size])]
+    [...Array(size)]
       .map((_, i, arr) =>
         arr.map((_, j, arr) => (j === i ? arr.length : placeHolder))
       )

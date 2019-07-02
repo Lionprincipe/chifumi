@@ -5,7 +5,13 @@ export default class GameBot {
   constructor(players, nbItteration = 0) {
     this.players = players
     const names = this.players.map(({ name }) => name)
-    this.game = new Chifumi(names, ['rock', 'paper', 'scissor'])
+    this.game = new Chifumi(names, [
+      'rock',
+      'paper',
+      'scissor',
+      'lizard',
+      'spock',
+    ])
     this.nbItteration = nbItteration
     this.results = []
     this.runAllRounds()
@@ -20,10 +26,9 @@ export default class GameBot {
 
   runOneRound = () => {
     const choices = this.getPlayersChoices()
-    console.log(choices)
-    // choices && this.game.setPlayersChoices(choices)
-    //  const roundResult = this.game.getResult()
-    //  this.results = roundResult ? [...this.results, roundResult] : this.results
+    choices && this.game.setPlayersChoices(choices)
+    const roundResult = this.game.getResult()
+    this.results = roundResult ? [...this.results, roundResult] : this.results
   }
 
   resultsParser = () => {
@@ -49,7 +54,6 @@ export default class GameBot {
 
   getOnePlayerChoice = ({ type, value }, choices) => {
     if (type === 'static') {
-      console.log(choices, 'ca c4est pas des choix')
       return choices.findIndex(item => item === value)
     } else if (type === 'random') {
       return getRandomInt(0, choices.length)

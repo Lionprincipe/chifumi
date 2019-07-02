@@ -15,6 +15,36 @@ export default class Chifumi {
     choices && this.setPlayersAttibuts('choice', choices)
   }
 
+  getResult = () => ({
+    players: this.players,
+    winner: { ...this.getWinner() },
+  })
+
+  getWinner = () => {
+    console.log(this.players, this.resultsMatrix)
+
+    const result = this.resultsMatrix[this.players[0].choice][
+      this.players[1].choice
+    ]
+
+    switch (result) {
+      case this.players[0].choice:
+        return this.players[0]
+      case this.players[1].choice:
+        return this.players[1]
+      default:
+        return {}
+    }
+  }
+
+  setSetOfChoices = choices => {
+    this.choices = [...new Set(choices)]
+  }
+
+  getChoices = () => {
+    return this.choices
+  }
+
   setPlayersAttibuts = (attributName, attributsList) => {
     try {
       this.players =
@@ -27,40 +57,5 @@ export default class Chifumi {
     } catch (err) {
       console.log(err.message)
     }
-  }
-
-  getResult = () => ({
-    players: this.players,
-    winner: { ...this.getWinner() },
-  })
-
-  checkForTied = () => {
-    return this.players[0].choice === this.players[1].choice
-  }
-
-  getWinner = () => {
-    return (
-      this.checkForTied() ||
-      this.checkForWinner(this.players[0], this.players[1]) ||
-      this.players[0]
-    )
-  }
-
-  setSetOfChoices = choices => {
-    this.choices = choices && [...new Set([...choices.map(({ name }) => name)])]
-  }
-
-  getChoices = () => {
-    return this.choices
-  }
-
-  checkForWinner(player1, player2) {
-    const index = this.resultsMatrix.findIndex(
-      ({ name }) => name === player1.choice
-    )
-    return (
-      this.presetChoices[index].beats.some(el => el === player2.choise) &&
-      player1
-    )
   }
 }
