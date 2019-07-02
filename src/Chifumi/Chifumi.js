@@ -21,8 +21,6 @@ export default class Chifumi {
   })
 
   getWinner = () => {
-    console.log(this.players, this.resultsMatrix)
-
     const result = this.resultsMatrix[this.players[0].choice][
       this.players[1].choice
     ]

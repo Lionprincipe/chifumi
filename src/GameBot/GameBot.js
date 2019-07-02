@@ -2,26 +2,18 @@ import Chifumi from '../Chifumi/Chifumi'
 import { getRandomInt } from '../utils'
 
 export default class GameBot {
-  constructor(players, nbItteration = 0) {
+  constructor(players, iteration = 0, choices) {
     this.players = players
     const names = this.players.map(({ name }) => name)
-    this.game = new Chifumi(names, [
-      'rock',
-      'paper',
-      'scissor',
-      'lizard',
-      'spock',
-    ])
-    this.nbItteration = nbItteration
+    this.game = new Chifumi(names, choices)
+    this.iteration = iteration
     this.results = []
     this.runAllRounds()
     this.resultsParser()
   }
 
   runAllRounds = () => {
-    console.log(this.nbItteration, ' tu me saoule')
-    this.nbItteration > 0 &&
-      [...Array(this.nbItteration)].forEach(this.runOneRound)
+    this.iteration > 0 && [...Array(this.iteration)].forEach(this.runOneRound)
   }
 
   runOneRound = () => {
@@ -33,13 +25,13 @@ export default class GameBot {
 
   resultsParser = () => {
     this.results = this.results.reduce((acc, { winner: { name } }) => {
+      name = name || 'tie'
       const index = acc.findIndex(({ name: accName }) => accName === name)
-      console.log(index)
       return (acc =
         index > -1
           ? [
               ...acc.slice(0, index),
-              { name, score: acc[index].score + 1 },
+              { name: name, score: acc[index].score + 1 },
               ...acc.slice(index + 1),
             ]
           : [...acc, { name, score: 1 }])
@@ -59,6 +51,4 @@ export default class GameBot {
       return getRandomInt(0, choices.length)
     }
   }
-  /*
-   */
 }

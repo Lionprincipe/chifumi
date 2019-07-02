@@ -1,3 +1,13 @@
+#Chifumi
+
+This Project was build Create a game which runs the game Rock,Paper, Scissor, Lizard Spock 100 times.
+The game should be played by two players. The result after the 100 runs displayed.
+
+Two different classes was created Chifumi and GameBot.
+
+Chifumi classe represents the game and its rules.
+And the GameBot takes care of running the game a given number of time.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -1,0 +1,8 @@
+{
+  "players": [
+    { "name": "A", "strategy": { "type": "random" } },
+    { "name": "B", "strategy": { "type": "static", "value": "paper" } }
+  ],
+  "choices": ["rock", "paper", "scissor", "lizard", "spock"],
+  "iteration": 100
+}
